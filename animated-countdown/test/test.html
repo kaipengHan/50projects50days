@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="./test.css">
+    <title>Document</title>
+</head>
+<body>
+<div>
+    <div class="counter">
+        <div class="nums">
+            <span class="in">3</span>
+            <span>2</span>
+            <span>1</span>
+            <span>0</span>
+        </div>
+        <h4>Get Ready</h4>
+    </div>
+    <div class="final">
+        <h1>Go</h1>
+        <button id="replay">
+            <span>Replay</span>
+        </button>
+    </div>
+    <script>
+        const nums = document.querySelectorAll('.nums span');
+        const replay = document.querySelector('#replay');
+        const counter = document.querySelector('.counter');
+        const final = document.querySelector('.final');
+
+        function runAnimation() {
+            const nextToLast = nums.length - 1;
+            nums.forEach((num, index) => {
+                num.addEventListener('animationend', e => {
+                    if (e.animationName === 'goIn' && index !== nextToLast) {
+                        num.classList.remove('in');
+                        num.classList.add('out');
+                    } else if (e.animationName === 'goOut' && num.nextElementSibling) {
+                        num.nextElementSibling.classList.add('in');
+                    } else {
+                        counter.classList.add('hide');
+                        final.classList.add('show');
+                    }
+                })
+            })
+        }
+        function resetDOM(){
+            counter.classList.remove('hide');
+            final.classList.remove('show');
+            nums.forEach(num => {
+                num.classList.value = '';
+            })
+            nums[0].classList.add('in');
+        }
+
+        runAnimation();
+        replay.addEventListener('click', () => {
+            resetDOM();
+            runAnimation();
+        })
+    </script>
+</div>
+</body>
+</html>
