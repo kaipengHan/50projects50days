@@ -1,0 +1,80 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body{
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.card{
+    width: 350px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+    border-radius: 10px;
+}
+.card .card-header{
+    height: 200px;
+}
+img{
+    width: 100%;
+    height: 100%;
+}
+
+.card .card-content{
+    background-color: #fff;
+    padding: 30px;
+}
+.card .card-content .card-title{
+    height: 20px;
+}
+.card .card-content .card-excerpt{
+    color: #777;
+    margin: 10px 0 20px;
+}
+.card .card-content .author{
+    display: flex;
+}
+.card .card-content .author-info{
+    width: 100px;
+    margin-left: 9px;
+}
+.author .profile-img{
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+}
+.author .author-info small{
+    color: #aaa;
+    margin-top: 5px;
+}
+
+.animated-bg-text {
+    border-radius: 50px;
+    display: inline-block;
+    margin: 0;
+    height: 10px;
+    width: 100%;
+}
+.animated-bg{
+    background-image: linear-gradient(
+            to right,
+            #f6f7f8 0%,
+            #edeef1 10%,
+            #f6f7f8 20%,
+            #f6f7f8 100%
+    );
+    background-size: 200% 100%;
+    animation: bgRun 1s linear infinite;
+}
+@keyframes bgRun {
+    from{
+        background-position: 50% 0;
+    }
+    to{
+        background-position: -150% 0;
+    }
+}
