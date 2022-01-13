@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="./test.css">
+    <title>Document</title>
+</head>
+<body>
+<section class="bg"></section>
+<h1 class="loadingText">0%</h1>
+<script>
+    const bg = document.querySelector('.bg');
+    const loadingText = document.querySelector('.loadingText');
+    let load = 0;
+    let timer = setInterval(blurring, 30);
+
+    function blurring() {
+        load++;
+        if (load >= 99) {
+            clearInterval(timer);
+        }
+        loadingText.innerText = `${load}%`;
+        loadingText.style.opacity = scale(load, 0, 100, 1, 0);
+        bg.style.filter = `blur(${scale(load, 0, 100, 30, 0)}px)`
+    }
+
+    const scale = (num, in_min, in_max, out_min, out_max) => {
+        return ((num - in_min) * (out_max - out_min)) / (in_max - in_min) + out_min
+    }
+</script>
+</body>
+</html>
