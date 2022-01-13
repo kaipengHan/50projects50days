@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="./test.css">
+    <title>Document</title>
+</head>
+<body>
+<button class="button">Click Me</button>
+<script>
+    const button = document.querySelector('.button');
+    button.addEventListener('click',function(e){
+        console.log(e,'e')
+        const offsetX = e.offsetX;
+        const offsetY = e.offsetY;
+
+        const circle = document.createElement('span');
+        circle.classList.add('circle');
+        circle.style.left = offsetX + 'px';
+        circle.style.top = offsetY + "px";
+        console.log(this)
+        this.appendChild(circle);
+
+        setTime(() => circle.remove(), 500);
+    })
+</script>
+</body>
+</html>
