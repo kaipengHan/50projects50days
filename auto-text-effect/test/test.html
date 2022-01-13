@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="./test.css">
+    <title>Document</title>
+</head>
+<body>
+<h1 id="text">Staring...</h1>
+<div>
+    <label for="speed">speed：</label>
+    <input type="number" name="speed" id="speed" min="1" step="1" value="1" max="10">
+</div>
+<script>
+    const textDOM = document.getElementById('text');
+    const speedDOM = document.getElementById('speed');
+    let text = 'We Love Programming !';
+    let textSpeed = 500 / speedDOM.value;
+    let idx = 1;
+
+    function writeText() {
+        textDOM.innerText = text.slice(0, idx);
+        if (idx < text.length) {
+            idx++;
+        }else{
+            idx = 1;
+        }
+        setTimeout(writeText, textSpeed);
+    }
+
+    writeText()
+    speedDOM.addEventListener('input', e => textSpeed = 500 / e.target.value);
+</script>
+</body>
+</html>
