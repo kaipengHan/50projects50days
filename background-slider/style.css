@@ -17,7 +17,7 @@ body {
   background-size: cover;
   transition: 0.4s;
 }
-
+/* 图片没加载出来有个背景色 */
 body::before {
   content: '';
   position: absolute;
