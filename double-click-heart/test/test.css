@@ -1,0 +1,33 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+body{
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+}
+.loveMe{
+    width: 300px;
+    height: 440px;
+    background: url('https://images.unsplash.com/photo-1504215680853-026ed2a45def?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=334&q=80') no-repeat center center/cover;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+}
+
+.loveMe .fas.fa-heart{
+    position: absolute;
+    color: red;
+    transform: translate(-50%, -50%) scale(0);
+    animation: heartRun 0.6s linear;
+}
+@keyframes heartRun {
+    to{
+        transform: translate(-50%,-50%) scale(10);
+        opacity: 0;
+    }
+}
