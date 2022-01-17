@@ -1,0 +1,64 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+body{
+    height: 100vh;
+}
+.sliderContainer{
+    /*width: 100vw;*/
+    height: 100vh;
+    position: relative;
+    overflow: hidden;
+}
+.sliderLeft{
+    width: 35%;
+    height: 100%;
+    position: absolute;
+    left: 0;
+    top: 0;
+    transition: transform 0.5s ease-in-out;
+}
+.sliderLeft > div{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.sliderRight{
+    width: 65%;
+    height: 100%;
+    position: absolute;
+    left: 35%;
+    transition: transform 0.5s ease-in-out;
+}
+.sliderRight > div{
+    width: 100%;
+    height: 100%;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+}
+button{
+    background-color: #fff;
+    border: none;
+    color: #aaa;
+    cursor: pointer;
+    font-size: 16px;
+    padding: 15px;
+}
+.sliderContainer .actionButtons button{
+    position: absolute;
+    left: 35%;
+    top: 50%;
+    z-index: 100;
+}
+.sliderContainer .actionButtons .up-button{
+    transform: translateX(-100%);
+}
+.sliderContainer .actionButtons .down-button{
+    transform: translateY(-100%);
+}
