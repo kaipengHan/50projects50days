@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="./test.css">
+    <title>canvas drawing</title>
+</head>
+<body>
+<canvas id="canvas" width="800" height="700"></canvas>
+<div class="toolbox">
+    <button id="decrease">-</button>
+    <span id="size">5</span>
+    <button id="increase">+</button>
+    <input type="color" id="color"/>
+    <button id="close">X</button>
+</div>
+<script>
+    const canvas = document.getElementById('canvas');
+    const ctx = canvas.getContext('2d');
+    const decrease = document.getElementById('decrease');
+    const increase = document.getElementById('increase');
+    const size = document.getElementById('size');
+    const colorDOM = document.getElementById('color');
+    const closeDOM = document.getElementById('close');
+    let sizeText = 5;
+    let x;
+    let y;
+    let color = '#000000';
+    let isPressed = false;
+    decrease.addEventListener('click', function () {
+        if (sizeText > 5) {
+            sizeText -= 5;
+        }
+        size.innerText = sizeText;
+    })
+    increase.addEventListener('click', function () {
+        if (sizeText < 50) {
+            sizeText += 5;
+        }
+        size.innerText = sizeText;
+    })
+    canvas.addEventListener('mousedown', function (e) {
+        isPressed = true;
+        x = e.offsetX;
+        y = e.offsetY;
+    })
+    document.addEventListener('mouseup', function () {
+        isPressed = false;
+        x = undefined;
+        y = undefined;
+    })
+    canvas.addEventListener('mousemove', function (e) {
+        if (isPressed) {
+            // 圆和线同时画
+            drawCircle(x, y);
+            drawLine(x, y, e.offsetX, e.offsetY);
+            x = e.offsetX;
+            y = e.offsetY;
+        }
+    })
+    // 这样画出来的圆可能不连续
+    function drawCircle(x,y){
+       ctx.beginPath();
+       ctx.arc(x,y,sizeText,0,Math.PI * 2);
+       ctx.fillStyle = color;
+       ctx.fill();
+       ctx.closePath();
+    }
+    // 这样画出来的线不连续
+    function drawLine(oX, oY, nX, nY) {
+        ctx.beginPath();
+        ctx.lineWidth = sizeText * 2;
+        ctx.strokeStyle = color;
+        ctx.moveTo(oX, oY);
+        ctx.lineTo(nX, nY);
+        ctx.stroke();
+    }
+
+    colorDOM.addEventListener('input', e => color = e.target.value);
+    closeDOM.addEventListener('click', () => ctx.clearRect(0, 0, canvas.width, canvas.height))
+</script>
+</body>
+</html>
