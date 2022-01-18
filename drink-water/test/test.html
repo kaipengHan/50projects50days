@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="./test.css">
+    <title>Document</title>
+</head>
+<body>
+<div class="cup">
+    <div class="remained" id="remained">
+        <span id="liters">100%</span>
+        <small>剩余</small>
+    </div>
+
+    <div class="percentage" id="percentage"></div>
+</div>
+
+<div class="cups">
+    <div class="cup cup-small">250 ml</div>
+    <div class="cup cup-small">250 ml</div>
+    <div class="cup cup-small">250 ml</div>
+    <div class="cup cup-small">250 ml</div>
+    <div class="cup cup-small">250 ml</div>
+    <div class="cup cup-small">250 ml</div>
+    <div class="cup cup-small">250 ml</div>
+    <div class="cup cup-small">250 ml</div>
+</div>
+<script>
+    const cupsSmall = document.querySelectorAll('.cup-small');
+    const percentage = document.getElementById('percentage');
+    const remained = document.getElementById('remained');
+    const liters = document.getElementById('liters');
+    cupsSmall.forEach((cup, index) => {
+        cup.addEventListener('click', () => highlightCups(index));
+    })
+
+    function highlightCups(index) {
+        if(index === 7 && cupsSmall[index].classList.contains('full')){
+            index--;
+        }else if(cupsSmall[index].classList.contains('full') && !cupsSmall[index].nextElementSibling.classList.contains('full')){
+            index--;
+        }
+        cupsSmall.forEach((cup, index2) => {
+            if(index2 <= index){
+                cup.classList.add('full');
+            }else{
+                cup.classList.remove('full');
+            }
+        })
+        updateBigCup();
+    }
+    function updateBigCup(){
+        const length = document.querySelectorAll('.cup-small.full').length;
+        const drinkWater = length * 250;
+        const height = Math.ceil((drinkWater * 3) / 20);
+        const top = (1 - height / 300) / 2;
+        percentage.style.height = `${height}px`;
+        remained.style.top = `${top * 100}%`
+        liters.innerText = `${(1 - drinkWater / 2000) * 100}%`;
+    }
+</script>
+</body>
+</html>
