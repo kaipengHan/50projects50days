@@ -1,0 +1,39 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.container {
+    width: 90vw;
+    border: 1px solid;
+    display: flex;
+}
+
+.panel {
+    height: 80vh;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    border-radius: 50px;
+    flex: 0.5;
+    margin: 10px;
+    cursor: pointer;
+    transition: all 0.5s linear;
+}
+
+.panel.active {
+    flex: 5;
+}
+
+h3 {
+    opacity: 0;
+}
