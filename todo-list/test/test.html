@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="./test.css">
+    <title>todo</title>
+</head>
+<body>
+<div class="todo">
+    <form id="form">
+        <input type="text" id="input" autocomplete="off">
+        <ul class="ul"></ul>
+    </form>
+</div>
+<script>
+    const input = document.getElementById('input');
+    const ul = document.querySelector('.ul');
+    const form = document.getElementById('form');
+    let todoItem = '';
+
+    input.addEventListener('input', function (e) {
+        todoItem = e.target.value;
+    })
+    form.addEventListener('submit', function (e) {
+        e.preventDefault();
+        addTdo();
+    })
+
+    function addTdo() {
+        if(todoItem){
+            const li = document.createElement('li');
+            li.innerText = todoItem;
+            ul.appendChild(li);
+            input.value = '';
+            todoItem = '';
+            li.addEventListener('click',function (e){
+                if(e.button === 0){ // 左键
+                    this.classList.toggle('complete');
+                }
+            })
+            li.addEventListener('contextmenu',function (e){
+                e.preventDefault();
+                if(e.button === 2){ // 右键
+                    li.remove();
+                }
+            })
+        }
+    }
+
+</script>
+</body>
+</html>
