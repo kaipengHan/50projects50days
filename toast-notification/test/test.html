@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>toast</title>
+    <style>
+        body {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+        }
+
+        #toast {
+            position: fixed;
+            top: 10px;
+            right: 10px;
+        }
+
+        #toast div {
+            padding: 20px;
+            box-sizing: border-box;
+            margin: 20px;
+        }
+
+        #toast .success {
+            background-color: #2ecc71;
+        }
+
+        #toast .info {
+            background-color: #9ec862;
+        }
+
+        #toast .error {
+            background-color: #f9ca24;
+        }
+    </style>
+</head>
+<body>
+<div id="toast"></div>
+<button id="btn">toast</button>
+<script>
+    const messages = [
+        'Message One',
+        'Message Two',
+        'Message Three',
+        'Message Four',
+    ]
+
+    const types = ['info', 'success', 'error']
+    const toast = document.getElementById('toast');
+    const btn = document.getElementById('btn');
+    btn.addEventListener('click', () => createToast());
+
+    function createToast(type = null, message = null) {
+        const noti = document.createElement('div');
+        noti.classList.add(type ? type : getTypeRandom());
+        noti.innerText = message ? message : getMessageRandom();
+        toast.appendChild(noti);
+
+        setTimeout(() => noti.remove(), 3000);
+    }
+
+    function getTypeRandom() {
+        return types[Math.floor(Math.random() * types.length)];
+    }
+
+    function getMessageRandom() {
+        return messages[Math.floor(Math.random() * messages.length)];
+    }
+</script>
+</body>
+</html>
