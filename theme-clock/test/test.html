@@ -1,0 +1,147 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>clock</title>
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-color: #000;
+            --secondary-color: #fff;
+        }
+
+        html.dark {
+            --primary-color: #fff;
+            --secondary-color: #333;
+        }
+
+        body {
+            background-color: var(--primary-color);
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            transition: 0.3s;
+        }
+
+        .clock-container {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .clock {
+            width: 200px;
+            height: 200px;
+            border: 1px solid;
+            position: relative;
+        }
+
+        .needle {
+            position: absolute;
+            height: 65px;
+            width: 3px;
+            border: 1px solid;
+            left: 50%;
+            top: 50%;
+            transform-origin: bottom center;
+            transition: 0.3s;
+        }
+
+        .needle.hour {
+            background-color: var(--primary-color);
+            height: 40px;
+            transform: translate(-50%, -100%) rotate(0);
+        }
+
+        .needle.minute {
+            background-color: var(--primary-color);
+            height: 55px;
+            transform: translate(-50%, -100%) rotate(0);
+        }
+
+        .needle.second {
+            transform: translate(-50%, -100%) rotate(0);
+        }
+
+        .center-point {
+            width: 9px;
+            height: 9px;
+            border: 1px solid;
+            border-radius: 50%;
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        .time {
+            color: var(--secondary-color);
+            transition: 0.3s;
+        }
+    </style>
+</head>
+<body>
+<button class="btn">切换主题</button>
+<div class="clock-container">
+    <div class="clock">
+        <div class="needle hour"></div>
+        <div class="needle minute"></div>
+        <div class="needle second"></div>
+        <div class="center-point"></div>
+    </div>
+    <div class="time">10:47 am</div>
+    <div class="date">2022-1-21 周几</div>
+</div>
+<script>
+    const weeks = ['星期日', '星期一', '星期二', '星期三', '星期四', '星期五', '星期六'];
+    const timeDOM = document.querySelector('.time');
+    const dateDOM = document.querySelector('.date');
+    const hourDOM = document.querySelector('.hour');
+    const minuteDOM = document.querySelector('.minute');
+    const secondDOM = document.querySelector('.second');
+    const btnDOM = document.querySelector('.btn');
+    const scale = (num, in_min, in_max, out_min, out_max) => {
+        return (num - in_min) * (out_max - out_min) / (in_max - in_min) + out_min;
+    }
+
+    btnDOM.addEventListener('click', function () {
+        const htmlDOM = document.querySelector('html');
+        if (htmlDOM.classList.contains('dark')) {
+            htmlDOM.classList.remove('dark');
+        } else {
+            htmlDOM.classList.add('dark');
+        }
+    })
+
+    function startTime() {
+        const date = new Date();
+        const year = date.getFullYear();
+        const month = date.getMonth() + 1;
+        const day = date.getDate();
+        const week = date.getDay();
+        const hour = date.getHours();
+        const minute = date.getMinutes();
+        const second = date.getSeconds();
+        const formatHour = hour >= 13 ? hour % 12 : hour;
+
+        hourDOM.style.transform = `translate(-50%, -100%) rotate(${scale(formatHour, 0, 12, 0, 360)}deg)`;
+        minuteDOM.style.transform = `translate(-50%, -100%) rotate(${scale(minute, 0, 60, 0, 360)}deg)`;
+        secondDOM.style.transform = `translate(-50%, -100%) rotate(${scale(second, 0, 60, 0, 360)}deg)`;
+        timeDOM.innerText = `${hour}:${minute} ${hour > 12 ? 'PM' : 'AM'}`;
+        dateDOM.innerText = `${year}-${month}-${day} ${weeks[week]}`;
+    }
+
+    startTime();
+    setInterval(startTime, 1000)
+</script>
+</body>
+</html>
